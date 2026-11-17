@@ -33,6 +33,5 @@ install(DIRECTORY
 ament_package()
 
 install(PROGRAMS
-  scripts/xx.py
   DESTINATION lib/${PROJECT_NAME}
 )
