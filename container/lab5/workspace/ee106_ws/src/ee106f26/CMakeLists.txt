@@ -33,5 +33,7 @@ install(DIRECTORY
 ament_package()
 
 install(PROGRAMS
+  scripts/motion_class.py
+  scripts/node_lidar.py
   DESTINATION lib/${PROJECT_NAME}
 )

@@ -11,22 +11,14 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
 
 ARGUMENTS = [
-    DeclareLaunchArgument('namespace', default_value='',
-                        description='Robot namespace'),
-    DeclareLaunchArgument('rviz', default_value='false',
-                        choices=['true', 'false'], description='Start rviz.'),
-    DeclareLaunchArgument('world', default_value='straight_line',
-                        description='Simulation World: name of a .sdf file in '
-                                    'ee106f26/worlds (without the extension), or '
-                                    'the name of a TurtleBot4 world, i.e. empty'),
-    DeclareLaunchArgument('model', default_value='lite',
-                        choices=['standard', 'lite'],
-                        description='Turtlebot4 Model'),
+    DeclareLaunchArgument('namespace', default_value='', description='Robot namespace'),
+    DeclareLaunchArgument('rviz', default_value='false', choices=['true', 'false'], description='Start rviz.'),
+    DeclareLaunchArgument('world', default_value='straight_line', description='Simulation World: name of a .sdf file in ee106f26/worlds (without the extension), or the name of a TurtleBot4 world, i.e. empty'),
+    DeclareLaunchArgument('model', default_value='lite', choices=['standard', 'lite'], description='Turtlebot4 Model'),
 ]
 
 for pose_element in ['x', 'y', 'z', 'yaw']:
-    ARGUMENTS.append(DeclareLaunchArgument(pose_element, default_value='0.0',
-                    description=f'{pose_element} component of the robot pose.'))
+    ARGUMENTS.append(DeclareLaunchArgument(pose_element, default_value='0.0', description=f'{pose_element} component of the robot pose.'))
 
 
 def generate_launch_description():
