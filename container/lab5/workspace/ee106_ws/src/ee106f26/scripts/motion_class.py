@@ -6,15 +6,17 @@ class MotionControl():
         self.get_logger().info(f'Moving forward and {'slightly left' if slightlyLeft else ''} {'slightly right' if slightlyRight else ''}')
 
         vel = TwistStamped()
-        vel.twist.linear.x = 3.0
+        vel.twist.linear.x = 2.0
         vel.twist.angular.z = 0.0
 
         if slightlyLeft:
-            vel.twist.angular.z = 7.0
+            vel.twist.angular.z = 5.5
+            
         elif slightlyRight:
-            vel.twist.angular.z = -7.0
+            vel.twist.angular.z = -4.5
+    
 
-        for _ in range(50):
+        for _ in range(4):
             self.publisher.publish(vel)
             time.sleep(0.1)
 
@@ -23,7 +25,7 @@ class MotionControl():
 
         vel = TwistStamped()
         vel.twist.linear.x = 0.0
-        vel.twist.angular.z = 5.0
+        vel.twist.angular.z = 4.0
 
         if right:
             vel.twist.angular.z = -5.0

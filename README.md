@@ -5,7 +5,7 @@
 Launch the Turtlebot:
 
 ```
-ros2 launch ee106f26 lab5_turtlebot_world.launch.py model:=lite world:=straight_line
+ros2 launch ee106f26 lab5_turtlebot_world.launch.py model:=lite world:=straight_line (change to complex or more_complex)
 ```
 
 Create 2 frames (right_limit and left_limit) with respect to rplidar_link:

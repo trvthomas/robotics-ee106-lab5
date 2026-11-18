@@ -55,15 +55,18 @@ class Lab5Node(Node):
             p_left = T @ p_lidar # Point with respect to left_link
 
             dist = math.hypot(p_left[0], p_left[1]) # Distance in meters
-
+            #self.get_logger().info(f'Theta = {theta}  and distance = {dist}')
             # Left points
-            if 2.819 > theta > -5.775 and dist < left_min_dist:
+            if (10*math.pi/180) > theta > (-10*math.pi/180) and dist < left_min_dist:
                 left_min_dist = dist
             # Forward points
-            elif -85 > theta > -95 and dist < 15:
+            
+            if (-65*math.pi/180) > theta > (-115*math.pi/18) and dist < 0.38:
+                self.get_logger().info(f'-------------------here1-------------------')
                 forward_object = True
 
-        self.get_logger().info(f'left dist= {left_min_dist} & forward? {forward_object}')
+
+        self.get_logger().info(f'forward? {forward_object} & left dist= {left_min_dist}')
 
         # Motion control based on conditions
         if 0.1 < left_min_dist < 0.2 and not forward_object:
@@ -77,6 +80,7 @@ class Lab5Node(Node):
         elif left_min_dist < 0.1 and not forward_object:
             MotionControl.move_forward(self, False, True)
         elif left_min_dist < 0.2 and forward_object:
+            
             MotionControl.turn(self, True)
 
 def main(args=None):
