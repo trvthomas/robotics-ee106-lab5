@@ -39,6 +39,7 @@ RUN \
         # More Python packages for the course
         python3-numpy \
         python3-pip \
+        python3-transforms3d \
         # XFCE4 window manager, needs dbus for components to communicate with each other
         xfce4 \
         xfce4-goodies \

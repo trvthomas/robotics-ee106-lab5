@@ -10,7 +10,7 @@ class MotionControl():
         vel.twist.angular.z = 0.0
 
         if slightlyLeft:
-            vel.twist.angular.z = 5.5
+            vel.twist.angular.z = 6.0
             
         elif slightlyRight:
             vel.twist.angular.z = -4.5
@@ -28,7 +28,7 @@ class MotionControl():
         vel.twist.angular.z = 4.0
 
         if right:
-            vel.twist.angular.z = -5.0
+            vel.twist.angular.z = -3.0
 
         for _ in range(10):
             self.publisher.publish(vel)

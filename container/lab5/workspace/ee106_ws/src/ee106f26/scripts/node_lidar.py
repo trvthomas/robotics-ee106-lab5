@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import math, rclpy, numpy
+import math, rclpy, numpy, time
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from rclpy.time import Time
@@ -24,6 +24,8 @@ class Lab5Node(Node):
 
         self.publisher = self.create_publisher(TwistStamped, 'cmd_vel', 5)
         self.subscriber = self.create_subscription(LaserScan, 'scan', self.callback, 5)
+
+        self.turn_count = 0
 
     def callback(self, scan: LaserScan):
         try:
@@ -62,26 +64,37 @@ class Lab5Node(Node):
             # Forward points
             
             if (-65*math.pi/180) > theta > (-115*math.pi/18) and dist < 0.38:
-                self.get_logger().info(f'-------------------here1-------------------')
                 forward_object = True
 
 
         self.get_logger().info(f'forward? {forward_object} & left dist= {left_min_dist}')
 
+        if self.turn_count > 14:
+            self.get_logger().info(f'spining infinitely, find a wall!')
+            if(left_min_dist < 1):
+                MotionControl.move_forward(self, False, False)
+            
+            time.sleep(2)
+
         # Motion control based on conditions
         if 0.1 < left_min_dist < 0.2 and not forward_object:
             MotionControl.move_forward(self, False, False)
+            self.turn_count = 0
         elif left_min_dist > 0.5 and not forward_object:
             MotionControl.turn(self)
+            self.turn_count += 1
         elif left_min_dist > 0.5 and forward_object:
             MotionControl.turn(self, True)
+            self.turn_count += 1
         elif left_min_dist > 0.2 and not forward_object:
             MotionControl.move_forward(self, True, False)
+            self.turn_count = 0
         elif left_min_dist < 0.1 and not forward_object:
             MotionControl.move_forward(self, False, True)
-        elif left_min_dist < 0.2 and forward_object:
-            
+            self.turn_count = 0
+        else:
             MotionControl.turn(self, True)
+            self.turn_count += 1
 
 def main(args=None):
     rclpy.init(args=args)
